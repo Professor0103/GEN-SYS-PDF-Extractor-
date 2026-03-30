@@ -11,7 +11,8 @@ from typing import Any
 
 
 _SECTION_PATTERNS: list[tuple[str, re.Pattern[str]]] = [
-    ("abstract", re.compile(r"(?im)^\s*(abstract)\s*$", re.MULTILINE)),
+    # Standalone "Abstract" line or "Abstract:" (common in reviews)
+    ("abstract", re.compile(r"(?im)^\s*abstract\s*(?:$|:\s*)")),
     ("introduction", re.compile(r"(?im)^\s*(?:1\.?\s*)?(introduction)\s*$")),
     ("methods", re.compile(r"(?im)^\s*(?:2\.?\s*)?(methods?|materials?\s+and\s+methods?|patients?\s+and\s+methods?)\s*$")),
     ("results", re.compile(r"(?im)^\s*(?:3\.?\s*)?(results?|findings?)\s*$")),

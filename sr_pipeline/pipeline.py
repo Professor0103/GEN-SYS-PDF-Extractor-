@@ -164,17 +164,21 @@ def _build_llm_text(record: dict[str, Any]) -> str:
     if had_references:
         parts.append(_format_header("REFERENCES") + "\n" + references_placeholder())
 
+    has_section_body = any(
+        (sections.get(k) or "").strip()
+        for k in ("abstract", "introduction", "methods", "results", "discussion")
+    )
+    if not has_section_body and record.get("clean_text"):
+        body = strip_reference_tail_for_llm(record["clean_text"].strip())
+        body = filter_llm_section_body(body)
+        parts.append(_format_header("FULL TEXT") + "\n" + body)
+
     if figures:
         cap_lines = "\n".join(f"- {c.strip()}" for c in figures)
         parts.append(_format_header("FIGURE CAPTIONS") + "\n" + cap_lines)
     if tables:
         cap_lines = "\n".join(f"- {c.strip()}" for c in tables)
         parts.append(_format_header("TABLE CAPTIONS") + "\n" + cap_lines)
-
-    if len(parts) <= 1 and record.get("clean_text"):
-        body = strip_reference_tail_for_llm(record["clean_text"].strip())
-        body = filter_llm_section_body(body)
-        parts.append(_format_header("FULL TEXT") + "\n" + body)
 
     out = "\n\n".join(parts).strip()
     out = strip_reference_tail_for_llm(out)

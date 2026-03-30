@@ -47,6 +47,44 @@ def _looks_like_journal_or_issue_line(s: str) -> bool:
         return True
     if re.match(r"^,?\s*march\s*$", low):
         return True
+    # Journal site promo + DOI (e.g. AHA)
+    if "is available at" in low and re.search(r"https?://", t):
+        return True
+    if "circulation research" in low and "ahajournals.org" in low:
+        return True
+    # Page + journal + issue date (e.g. 722 Circulation Research August 31, 2018)
+    if re.match(
+        r"^\d{3,4}\s+.+\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},?\s+\d{4}\s*$",
+        t,
+        re.I,
+    ):
+        return True
+    if re.match(r"^\d{3,4}\s+Circulation Research\b", t, re.I):
+        return True
+    # Running header with page (e.g. "Wang et al Cardiovascular GPCRs 717")
+    if (
+        len(t) <= 110
+        and re.search(r"\bet al\s+[A-Z][a-zA-Z\-]+\s+", t)
+        and re.search(r"\d{3,4}\s*$", t)
+    ):
+        return True
+    # Column bleed: lone page index
+    if re.match(r"^\s*\d{1,3}\s*,\s*$", t):
+        return True
+    # Author-address blocks that land in the body (not only leading peel)
+    if re.match(r"^from the department of\b", low):
+        return True
+    if re.match(r"^correspondence to\b", low):
+        return True
+    # Zip + email fragment left after stripping "Correspondence to …"
+    if re.match(r"^\s*\d{5}\.?\s+Email\s+\S+@\S+", t, re.I):
+        return True
+    # Wrapped affiliation line: "(H.A.R.), Duke University Medical Center, Durham, NC."
+    if (
+        len(t) < 240
+        and re.match(r"^\([^)]+\),\s*.+\b(?:University|Medical Center)\b", t)
+    ):
+        return True
     return False
 
 
