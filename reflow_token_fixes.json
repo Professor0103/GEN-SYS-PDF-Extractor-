@@ -1,0 +1,18 @@
+[
+  {
+    "pattern": "\\bABSTR\\s+ACT\\b",
+    "replacement": "ABSTRACT",
+    "ignore_case": true
+  },
+  {
+    "pattern": "\\bThe\\s+new\\s+engl\\s+and\\s+jour\\s+nal\\s+of\\s+medicine\\b",
+    "replacement": "The New England Journal of Medicine",
+    "ignore_case": true
+  },
+  {
+    "pattern": "\\bn\\s+engl\\s+j\\s+med\\b",
+    "replacement": "N Engl J Med",
+    "ignore_case": true
+  }
+]
+

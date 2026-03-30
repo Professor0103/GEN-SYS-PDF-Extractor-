@@ -1,0 +1,8 @@
+# PDF pipeline (native extraction)
+pymupdf>=1.24.0
+# Layout-aware extraction + tables (https://github.com/jsvine/pdfplumber)
+pdfplumber>=0.11.0
+
+# Optional: scanned PDFs — install Tesseract OCR separately, then:
+# pip install pytesseract pillow
+# pytesseract>=0.3.10

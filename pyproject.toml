@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gen-sys"
+version = "0.1.0"
+description = "GEN-SYS: PDF full-text extraction for systematic review workflows"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+  "pymupdf>=1.24.0",
+  "pdfplumber>=0.11.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["sr_pipeline*"]

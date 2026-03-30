@@ -1,0 +1,9 @@
+[
+  { "pattern": "\\bDownloaded from\\b", "ignore_case": true },
+  { "pattern": "\\bCopyright\\b", "ignore_case": true },
+  { "pattern": "\\ball rights reserved\\b", "ignore_case": true },
+  { "pattern": "\\bMy\\s+Account\\b", "ignore_case": true },
+  { "pattern": "Creative Commons", "ignore_case": true },
+  { "pattern": "^my\\s+\\w+\\s+in\\s+the\\s+journal\\s+online\\b", "ignore_case": true }
+]
+

@@ -1,0 +1,36 @@
+# Local outputs (regenerate with pipeline.py)
+output/
+
+# Local reference PDFs and internal notes (not part of the published repo)
+document-context/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# Tools / editors
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Env / secrets
+.env
+.env.*
