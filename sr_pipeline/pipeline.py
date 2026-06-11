@@ -20,7 +20,6 @@ from sr_pipeline.llm_normalize import (
     build_llm_ready_payload,
     filter_llm_section_body,
     normalize_llm_text_spacing,
-    references_placeholder,
     strip_reference_tail_for_llm,
 )
 from sr_pipeline.segmenter import chunk_text, extract_metadata_light, segment_sections
@@ -127,10 +126,11 @@ def _build_llm_text(record: dict[str, Any]) -> str:
     """
     Build the plain-text version for downstream LLMs: underlined section headers
     and body text only (no instructional signpost lines).
-    """
-    raw_sections = record.get("sections") or {}
-    had_references = bool((raw_sections.get("references") or "").strip())
 
+    References are intentionally omitted from this export — the LLM does not need
+    the bibliography for screening. The raw reference list is still preserved in
+    the `_full.txt` sidecar for inspection.
+    """
     title, sections = build_llm_ready_payload(record)
     figures = record.get("figure_captions") or []
     tables = record.get("table_captions") or []
@@ -160,9 +160,6 @@ def _build_llm_text(record: dict[str, Any]) -> str:
         content = (sections.get(key) or "").strip()
         if content:
             parts.append(_format_header(header) + "\n\n" + content)
-
-    if had_references:
-        parts.append(_format_header("REFERENCES") + "\n" + references_placeholder())
 
     has_section_body = any(
         (sections.get(k) or "").strip()
