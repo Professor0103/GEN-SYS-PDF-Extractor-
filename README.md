@@ -2,7 +2,7 @@
 
 Extract and normalize full text from academic PDFs for systematic review and LLM-assisted screening. The pipeline uses native PDF text (PyMuPDF / pdfplumber), reflows broken lines, strips common publisher noise, segments coarse sections (abstract, methods, results, etc.), and writes JSON plus a plain-text view for downstream tools.
 
-**Scope:** Works best on born-digital PDFs with selectable text. Scanned pages are detected; OCR is not included here (add Tesseract + `pytesseract` if you need it).
+**Scope:** Works best on born-digital PDFs with selectable text. Scanned pages are detected; OCR is included.
 
 ## Requirements
 
